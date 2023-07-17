@@ -35,6 +35,7 @@ using IoTSharp.Data.TimeSeries;
 using IoTSharp.Data.Extensions;
 using Quartz;
 using IoTSharp.Services;
+using Quartz.AspNetCore;
 
 namespace IoTSharp
 {
