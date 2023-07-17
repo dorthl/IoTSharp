@@ -29,7 +29,6 @@ using IoTSharp.Contracts;
 using IoTSharp.EventBus.CAP;
 using IoTSharp.EventBus.Shashlik;
 using Microsoft.EntityFrameworkCore;
-using ShardingCore;
 using Storage.Net;
 using IoTSharp.Data.TimeSeries;
 using IoTSharp.Data.Extensions;
