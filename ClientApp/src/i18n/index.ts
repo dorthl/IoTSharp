@@ -2,6 +2,7 @@ import { createI18n } from 'vue-i18n';
 import pinia from '/@/stores/index';
 import { storeToRefs } from 'pinia';
 import { useThemeConfig } from '/@/stores/themeConfig';
+
 import zhcnLocale from 'element-plus/lib/locale/lang/zh-cn';
 import enLocale from 'element-plus/lib/locale/lang/en';
 import zhtwLocale from 'element-plus/lib/locale/lang/zh-tw';
