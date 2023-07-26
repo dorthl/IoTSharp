@@ -2,11 +2,11 @@
 
 namespace IoTSharp.Migrations
 {
-    public partial class RunSqlScript : Migration
+  public partial class RunSqlScript : Migration
+  {
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
+      migrationBuilder.Sql(@"
 CREATE TABLE qrtz_job_details
   (
     sched_name TEXT NOT NULL,
@@ -165,11 +165,11 @@ create index idx_qrtz_ft_job_group on qrtz_fired_triggers(job_group);
 create index idx_qrtz_ft_job_req_recovery on qrtz_fired_triggers(requests_recovery);");
 
 
-        }
+    }
 
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.Sql(@"
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.Sql(@"
 DROP TABLE IF EXISTS qrtz_fired_triggers;
 DROP TABLE IF EXISTS qrtz_paused_trigger_grps;
 DROP TABLE IF EXISTS qrtz_scheduler_state;
@@ -182,6 +182,6 @@ DROP TABLE IF EXISTS qrtz_triggers;
 DROP TABLE IF EXISTS qrtz_job_details;
 DROP TABLE IF EXISTS qrtz_calendars;"
 );
-        }
     }
+  }
 }

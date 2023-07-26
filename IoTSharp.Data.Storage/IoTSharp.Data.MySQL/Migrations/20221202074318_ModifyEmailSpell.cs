@@ -4,22 +4,22 @@
 
 namespace IoTSharp.Data.MySql.Migrations
 {
-    public partial class ModifyEmailSpell : Migration
+  public partial class ModifyEmailSpell : Migration
+  {
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.RenameColumn(
-                name: "EMail",
-                table: "Tenant",
-                newName: "Email");
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.RenameColumn(
-                name: "Email",
-                table: "Tenant",
-                newName: "EMail");
-        }
+      migrationBuilder.RenameColumn(
+          name: "EMail",
+          table: "Tenant",
+          newName: "Email");
     }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.RenameColumn(
+          name: "Email",
+          table: "Tenant",
+          newName: "EMail");
+    }
+  }
 }

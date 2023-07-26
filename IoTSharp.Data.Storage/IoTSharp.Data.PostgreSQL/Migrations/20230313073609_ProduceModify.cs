@@ -4,25 +4,25 @@
 
 namespace IoTSharp.Migrations
 {
+  /// <inheritdoc />
+  public partial class ProduceModify : Migration
+  {
     /// <inheritdoc />
-    public partial class ProduceModify : Migration
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        /// <inheritdoc />
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<string>(
-                name: "ProduceToken",
-                table: "Produces",
-                type: "text",
-                nullable: true);
-        }
-
-        /// <inheritdoc />
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "ProduceToken",
-                table: "Produces");
-        }
+      migrationBuilder.AddColumn<string>(
+          name: "ProduceToken",
+          table: "Produces",
+          type: "text",
+          nullable: true);
     }
+
+    /// <inheritdoc />
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.DropColumn(
+          name: "ProduceToken",
+          table: "Produces");
+    }
+  }
 }

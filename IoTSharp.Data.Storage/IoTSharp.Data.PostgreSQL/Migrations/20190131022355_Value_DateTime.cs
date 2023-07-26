@@ -1,24 +1,24 @@
-﻿using System;
-using Microsoft.EntityFrameworkCore.Migrations;
+﻿using Microsoft.EntityFrameworkCore.Migrations;
+using System;
 
 namespace IoTSharp.Migrations
 {
-    public partial class Value_DateTime : Migration
+  public partial class Value_DateTime : Migration
+  {
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "Value_DateTime",
-                table: "DataStorage",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-            migrationBuilder.DropColumn(
-                name: "Value_DateTime",
-                table: "DataStorage");
-        }
+      migrationBuilder.AddColumn<DateTime>(
+          name: "Value_DateTime",
+          table: "DataStorage",
+          nullable: false,
+          defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
     }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+      migrationBuilder.DropColumn(
+          name: "Value_DateTime",
+          table: "DataStorage");
+    }
+  }
 }

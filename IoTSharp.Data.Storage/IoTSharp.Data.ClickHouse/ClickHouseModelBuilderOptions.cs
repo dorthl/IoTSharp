@@ -4,17 +4,17 @@ using System;
 
 namespace IoTSharp.Data.ClickHouse
 {
-    public class ClickHouseModelBuilderOptions : IDataBaseModelBuilderOptions
+  public class ClickHouseModelBuilderOptions : IDataBaseModelBuilderOptions
+  {
+    public ClickHouseModelBuilderOptions()
     {
-        public ClickHouseModelBuilderOptions()
-        {
-        }
-
-        public IInfrastructure<IServiceProvider> Infrastructure { get; set; }
-
-        public void OnModelCreating(ModelBuilder modelBuilder)
-        {
-           
-        }
     }
+
+    public IInfrastructure<IServiceProvider> Infrastructure { get; set; }
+
+    public void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+    }
+  }
 }

@@ -2,16 +2,16 @@
 
 namespace IoTSharp.Migrations
 {
-    public partial class ModifyColumnOrder : Migration
+  public partial class ModifyColumnOrder : Migration
+  {
+    protected override void Up(MigrationBuilder migrationBuilder)
     {
-        protected override void Up(MigrationBuilder migrationBuilder)
-        {
 
-        }
-
-        protected override void Down(MigrationBuilder migrationBuilder)
-        {
-
-        }
     }
+
+    protected override void Down(MigrationBuilder migrationBuilder)
+    {
+
+    }
+  }
 }

@@ -12,78 +12,78 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace IoTSharp.Extensions.X509
 {
-    #region Usings
+  #region Usings
 
-    using Org.BouncyCastle.Crypto.Parameters;
-    using System;
-    using System.IO;
-    using System.Security.Cryptography.X509Certificates;
+  using Org.BouncyCastle.Crypto.Parameters;
+  using System;
+  using System.IO;
+  using System.Security.Cryptography.X509Certificates;
+
+  #endregion
+
+  public static class X509PemExtensions
+  {
+    #region Public Methods
+
+    public static void SavePem(this X509Certificate2 @this, out string cert, out string privateKey)
+    {
+      cert = string.Empty;
+      privateKey = string.Empty;
+      try
+      {
+        if (@this.HasPrivateKey)
+        {
+          var p = @this.GetRSAPrivateKey().ExportParameters(true);
+          var key = new RsaPrivateCrtKeyParameters(
+              new Org.BouncyCastle.Math.BigInteger(1, p.Modulus), new Org.BouncyCastle.Math.BigInteger(1, p.Exponent), new Org.BouncyCastle.Math.BigInteger(1, p.D),
+              new Org.BouncyCastle.Math.BigInteger(1, p.P), new Org.BouncyCastle.Math.BigInteger(1, p.Q), new Org.BouncyCastle.Math.BigInteger(1, p.DP), new Org.BouncyCastle.Math.BigInteger(1, p.DQ),
+              new Org.BouncyCastle.Math.BigInteger(1, p.InverseQ));
+          using (var stringWriter = new StringWriter())
+          {
+            var pemWriter = new Org.BouncyCastle.OpenSsl.PemWriter(stringWriter);
+            pemWriter.WriteObject(key);
+            privateKey = stringWriter.GetStringBuilder().ToString();
+          }
+        }
+        cert = PemCertificateHelper.ExportCertificateToPEM(@this);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception($"Certificate could not be saved.  ", ex);
+      }
+    }
+
+    public static void SavePem(this X509Certificate2 @this, string certFile, string privateKeyFile = null)
+    {
+      SavePem(@this, out string cert, out string privateKey);
+      File.WriteAllText(certFile, cert);
+      File.WriteAllText(privateKeyFile, privateKey);
+    }
+
+    public static X509Certificate2 LoadPem(this X509Certificate2 @this, string certFile, string privateKeyFile = null, string password = null)
+    {
+      try
+      {
+        return PemCertificateHelper.ReadPemCertificateWithPrivateKey(certFile, privateKeyFile, password);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception($"Pem certificate {certFile} could not be loaded", ex);
+      }
+    }
+
+    public static X509Certificate2 LoadPem(this X509Certificate2 @this, byte[] certBuffer, byte[] privateKeyBuffer = null)
+    {
+      try
+      {
+        return PemCertificateHelper.ReadPemCertificateWithPrivateKey(certBuffer, privateKeyBuffer);
+      }
+      catch (Exception ex)
+      {
+        throw new Exception($"Pem certificate buffer could not be loaded", ex);
+      }
+    }
 
     #endregion
-
-    public static class X509PemExtensions
-    {
-        #region Public Methods
-
-        public static void SavePem(this X509Certificate2 @this, out string cert, out string privateKey)
-        {
-            cert = string.Empty;
-            privateKey = string.Empty;
-            try
-            {
-                if (@this.HasPrivateKey)
-                {
-                    var p = @this.GetRSAPrivateKey().ExportParameters(true);
-                    var key = new RsaPrivateCrtKeyParameters(
-                        new Org.BouncyCastle.Math.BigInteger(1, p.Modulus), new Org.BouncyCastle.Math.BigInteger(1, p.Exponent), new Org.BouncyCastle.Math.BigInteger(1, p.D),
-                        new Org.BouncyCastle.Math.BigInteger(1, p.P), new Org.BouncyCastle.Math.BigInteger(1, p.Q), new Org.BouncyCastle.Math.BigInteger(1, p.DP), new Org.BouncyCastle.Math.BigInteger(1, p.DQ),
-                        new Org.BouncyCastle.Math.BigInteger(1, p.InverseQ));
-                    using (var stringWriter = new StringWriter())
-                    {
-                        var pemWriter = new Org.BouncyCastle.OpenSsl.PemWriter(stringWriter);
-                        pemWriter.WriteObject(key);
-                        privateKey = stringWriter.GetStringBuilder().ToString();
-                    }
-                }
-                cert = PemCertificateHelper.ExportCertificateToPEM(@this);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Certificate could not be saved.  ", ex);
-            }
-        }
-
-        public static void SavePem(this X509Certificate2 @this, string certFile, string privateKeyFile = null)
-        {
-            SavePem(@this, out string cert, out string privateKey);
-            File.WriteAllText(certFile, cert);
-            File.WriteAllText(privateKeyFile, privateKey);
-        }
-
-        public static X509Certificate2 LoadPem(this X509Certificate2 @this, string certFile, string privateKeyFile = null, string password = null)
-        {
-            try
-            {
-                return PemCertificateHelper.ReadPemCertificateWithPrivateKey(certFile, privateKeyFile, password);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Pem certificate {certFile} could not be loaded", ex);
-            }
-        }
-
-        public static X509Certificate2 LoadPem(this X509Certificate2 @this, byte[] certBuffer, byte[] privateKeyBuffer = null)
-        {
-            try
-            {
-                return PemCertificateHelper.ReadPemCertificateWithPrivateKey(certBuffer, privateKeyBuffer);
-            }
-            catch (Exception ex)
-            {
-                throw new Exception($"Pem certificate buffer could not be loaded", ex);
-            }
-        }
-
-        #endregion
-    }
+  }
 }

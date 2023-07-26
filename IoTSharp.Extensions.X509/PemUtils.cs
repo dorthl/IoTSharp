@@ -9,62 +9,59 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
 
 namespace IoTSharp.Extensions.X509
 {
-    #region Usings
-    using Org.BouncyCastle.Crypto.Parameters;
-    using System;
-    using System.Collections.Generic;
-    using System.Security.Cryptography;
-    using System.Text;
-    #endregion
+  #region Usings
+  using Org.BouncyCastle.Crypto.Parameters;
+  using System.Security.Cryptography;
+  #endregion
 
-    internal class PemUtils
+  internal class PemUtils
+  {
+    #region Public Methods
+    public static RSA ToRSA(RsaKeyParameters rsaKey)
     {
-        #region Public Methods
-        public static RSA ToRSA(RsaKeyParameters rsaKey)
-        {
-            var rp = ToRSAParameters(rsaKey);
-            var rsaCsp = new RSACryptoServiceProvider();
-            rsaCsp.ImportParameters(rp);
-            return rsaCsp;
-        }
-
-        public static RSA ToRSA(RsaPrivateCrtKeyParameters privKey)
-        {
-            var rp = ToRSAParameters(privKey);
-            var rsaCsp = new RSACryptoServiceProvider();
-            rsaCsp.ImportParameters(rp);
-            return rsaCsp;
-        }
-
-        public static RSAParameters ToRSAParameters(RsaKeyParameters rsaKey)
-        {
-            var rp = new RSAParameters()
-            {
-                Modulus = rsaKey.Modulus.ToByteArrayUnsigned(),
-            };
-
-            if (rsaKey.IsPrivate)
-                rp.D = rsaKey.Exponent.ToByteArrayUnsigned();
-            else
-                rp.Exponent = rsaKey.Exponent.ToByteArrayUnsigned();
-            return rp;
-        }
-
-        public static RSAParameters ToRSAParameters(RsaPrivateCrtKeyParameters privKey)
-        {
-            var rp = new RSAParameters()
-            {
-                Modulus = privKey.Modulus.ToByteArrayUnsigned(),
-                Exponent = privKey.PublicExponent.ToByteArrayUnsigned(),
-                D = privKey.Exponent.ToByteArrayUnsigned(),
-                P = privKey.P.ToByteArrayUnsigned(),
-                Q = privKey.Q.ToByteArrayUnsigned(),
-                DP = privKey.DP.ToByteArrayUnsigned(),
-                DQ = privKey.DQ.ToByteArrayUnsigned(),
-                InverseQ = privKey.QInv.ToByteArrayUnsigned()
-            };
-            return rp;
-        }
-        #endregion
+      var rp = ToRSAParameters(rsaKey);
+      var rsaCsp = new RSACryptoServiceProvider();
+      rsaCsp.ImportParameters(rp);
+      return rsaCsp;
     }
+
+    public static RSA ToRSA(RsaPrivateCrtKeyParameters privKey)
+    {
+      var rp = ToRSAParameters(privKey);
+      var rsaCsp = new RSACryptoServiceProvider();
+      rsaCsp.ImportParameters(rp);
+      return rsaCsp;
+    }
+
+    public static RSAParameters ToRSAParameters(RsaKeyParameters rsaKey)
+    {
+      var rp = new RSAParameters()
+      {
+        Modulus = rsaKey.Modulus.ToByteArrayUnsigned(),
+      };
+
+      if (rsaKey.IsPrivate)
+        rp.D = rsaKey.Exponent.ToByteArrayUnsigned();
+      else
+        rp.Exponent = rsaKey.Exponent.ToByteArrayUnsigned();
+      return rp;
+    }
+
+    public static RSAParameters ToRSAParameters(RsaPrivateCrtKeyParameters privKey)
+    {
+      var rp = new RSAParameters()
+      {
+        Modulus = privKey.Modulus.ToByteArrayUnsigned(),
+        Exponent = privKey.PublicExponent.ToByteArrayUnsigned(),
+        D = privKey.Exponent.ToByteArrayUnsigned(),
+        P = privKey.P.ToByteArrayUnsigned(),
+        Q = privKey.Q.ToByteArrayUnsigned(),
+        DP = privKey.DP.ToByteArrayUnsigned(),
+        DQ = privKey.DQ.ToByteArrayUnsigned(),
+        InverseQ = privKey.QInv.ToByteArrayUnsigned()
+      };
+      return rp;
+    }
+    #endregion
+  }
 }

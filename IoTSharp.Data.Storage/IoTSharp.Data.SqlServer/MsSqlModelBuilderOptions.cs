@@ -4,17 +4,17 @@ using System;
 
 namespace IoTSharp.Data.SqlServer
 {
-    public class MsSqlModelBuilderOptions : IDataBaseModelBuilderOptions
+  public class MsSqlModelBuilderOptions : IDataBaseModelBuilderOptions
+  {
+    public MsSqlModelBuilderOptions()
     {
-        public MsSqlModelBuilderOptions()
-        {
-        }
-
-        public IInfrastructure<IServiceProvider> Infrastructure { get; set; }
-
-        public void OnModelCreating(ModelBuilder modelBuilder)
-        {
-            
-        }
     }
+
+    public IInfrastructure<IServiceProvider> Infrastructure { get; set; }
+
+    public void OnModelCreating(ModelBuilder modelBuilder)
+    {
+
+    }
+  }
 }

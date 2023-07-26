@@ -1,16 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 
 namespace IoTSharp.Dtos
 {
-    public class DeviceAttrEditDto
-    {
-        public Dictionary<string, object> clientside { get; set; }
-        public Dictionary<string, object> serverside { get; set; }
-        public Dictionary<string, object> anyside { get; set; }
+  public class DeviceAttrEditDto
+  {
+    public Dictionary<string, object> clientside { get; set; }
+    public Dictionary<string, object> serverside { get; set; }
+    public Dictionary<string, object> anyside { get; set; }
 
 
-    }
+  }
 }
